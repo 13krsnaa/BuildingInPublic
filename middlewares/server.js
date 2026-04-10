@@ -36,6 +36,17 @@ Request path: ${req.path}
 request hostname: ${req.hostname}`);
   next();
 });
+//*  middleware for /api route *//
+app.use("/api", (req, res, next) => {
+  let { token } = req.query;
+  if (token === "giveacess") {
+    next();
+  } else {
+    res.send("Acess Denied!  Acess Token Required");
+  }
+});
+
+//! ROUTES !//
 
 //* basic requests *//
 
@@ -45,6 +56,12 @@ app.get("/", (req, res) => {
 
 app.get("/random", (req, res) => {
   res.send("this is a random page");
+});
+
+//* API Token as Query string *//
+
+app.get("/api", (req, res) => {
+  res.send("This is a API Endpoint");
 });
 
 //* Server Listening on port 3000*//
