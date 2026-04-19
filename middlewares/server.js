@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+const ExpressError = require("./ExpressError");
 
 //* Basic middleware *//
 
@@ -42,7 +43,7 @@ app.use("/api", (req, res, next) => {
   if (token === "giveacess") {
     next();
   } else {
-    res.send("Acess Denied!  Acess Token Required");
+    throw new ExpressError(401, "Acess Denied!  Acess Token Required");
   }
 });
 
@@ -66,20 +67,20 @@ app.get("/api", (req, res) => {
 
 //* Error handeling *//
 
-app.get("/error", (req, res) => {
-  sffdfsdf = jdjd;
-});
+// app.get("/error", (req, res) => {
+//   sffdfsdf = jdjd;
+// });
 
 // Error handeling middlewares
-app.use((err, req, res, next) => {
-  console.log("-----ERROR 1-----");
-  next(err); //ye next error ko next eroor handeling middlewares ko pass krta hai
-});
+// app.use((err, req, res, next) => {
+//   console.log("-----ERROR 1-----");
+//   next(err); //ye next error ko next eroor handeling middlewares ko pass krta hai
+// });
 
-app.use((err, req, res, next) => {
-  console.log("-----ERROR 2-----");
-  next(err);
-});
+// app.use((err, req, res, next) => {
+//   console.log("-----ERROR 2-----");
+//   next(err);
+// });
 //* Server Listening on port 3000*//
 app.listen(3000, () => {
   console.log("Server is runing on port 3000");
